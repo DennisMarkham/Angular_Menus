@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <link rel="stylesheet" type="text/css" href="chinese.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+
+<body>
+
+<div ng-app="myApp" ng-controller="menuCtrl">
+
+<table border="1" width="100%" rules = "none">
+  <tr>
+    <th ng-click="orderByMe('food')">Dish</th>
+    <th ng-click="orderByMe('price')">Price</th>
+  </tr>
+  <tr ng-repeat="x in menu | orderBy:myOrderBy">
+    <!-- Very awkward way to deal with display spice.  May remove.  Most dishes are not spicy
+      Yet as is spice shows up by default.  If only I could be HTML Angular object-->
+    <td>{{x.food}} <span class = "spice" style = "display:{{x.spice}}"><i class='fas fa-pepper-hot'></i></span></td>
+    <td>{{x.price | currency}}</td>
+  </tr>
+</table>
+
+</div>
+
+<script>
+angular.module('myApp', []).controller('menuCtrl', function($scope) {
+  $scope.menu = [
+    {food:'Shrimp Lo-Mien', price:'15', spice: "none"},
+    {food:'Pork Lo-Mien', price:'14'},
+    {food:'Wonton Soup', price:'5'},
+    {food:'Barbeque Pork Ribs', price:'8'},
+    {food: 'Beef and Brocoli', price: '13'}
+  ];
+  $scope.orderByMe = function(x) {
+    $scope.myOrderBy = x;
+  }
+});
+</script>
+
+</body>
+</html>
